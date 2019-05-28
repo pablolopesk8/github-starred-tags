@@ -1,0 +1,154 @@
+FORMAT: 1A
+
+# Github Tags API
+
+Tags API is a small service to allow Github users to manage your starreds API, through simple endpoints services.  
+Using this API, anyone can create an powerfull interface to manipulate starred repositories on Github.  
+
+# Group Starred Repositories
+
+Resources related with information about starred repositories
+
+## Starred Repositories Collection [/{user}/repos/starred/{?tags}]
+
++ Parameter
+
+    + user: pablolopesk8 (string, required) - An github user id to get starred repositories
+    + tags: node, docker (comma-separeted string, optional) - Tags, separeted by comma, to filter the repositories
+
+### List all starred repositories [GET]
+
+Get a list of starred repositories of the user passed as paramenter, filtering by tags, if it's passed
+
++ Response 200 (application/json)
+
+    + Body
+
+            [    
+                {
+                    id: 178589196,
+                    name: "challenge-development",
+                    description: "An description about the repository",
+                    url: "https://github.com/brainnco/challenge-development",
+                    language: "Javascript",
+                    tags: [
+                        "nodejs", "docker"
+                    ]
+                }
+            ]
+
+    + Schema
+
+            {
+                type: "array",
+                items: {
+                    type: "object",
+                    properties: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        },
+                        description: {
+                            type: "string"
+                        },
+                        url: {
+                            type: "string"
+                        },
+                        tags: {
+                            type: "array",
+                            items: {
+                                type: "string"
+                            }
+                        }
+                    }
+                }
+            }
+
+# Group Repositories Tags
+
+Resources related with operations with tags into repositories
+
+## Repositories Tags Collection [/{user}/{repoId}/tags]
+
++ Parameter
+
+    + user: pablolopesk8 (string, required) - An github user id, which is the owner of the repository
+    + repoId: 178589196 (number, required) - An github repository id, to manage tags
+
+### Insert new tags into repository [POST]
+
+Insert an array of tags into respository, and return the actual tags of repository, after the change
+
++ Request (application/json)
+    
+    + Body
+
+            [
+                "api", "blueprint"
+            ]
+
+    + Schema
+
+            {
+                type: "array",
+                items: {
+                    type: "string"
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                "nodejs", "docker", "api", "blueprint"
+            ]
+
+    + Schema
+
+            {
+                type: "array",
+                items: {
+                    type: "string"
+                }
+            }
+
+### Delete tags for repository [DELETE]
+
+Delete an array of tags for respository, and return the actual tags of repository, after the change
+
++ Request (application/json)
+    
+    + Body
+
+            [
+                "docker", "blueprint"
+            ]
+
+    + Schema
+
+            {
+                type: "array",
+                items: {
+                    type: "string"
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                "nodejs", "api"
+            ]
+
+    + Schema
+
+            {
+                type: "array",
+                items: {
+                    type: "string"
+                }
+            }
