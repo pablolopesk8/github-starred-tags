@@ -7,7 +7,7 @@ Dado o username gustavohenrique:
 ```sh
 curl -slv https://api.github.com/users/gustavohenrique/starred?sort=updated&direction=desc
 ```
-token d1e754e1e5f6cf1aacecdf34fdce46e7b1f7965a
+
 **API v4 via Python**
 ```python
 from gql import gql, Client
