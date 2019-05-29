@@ -20,6 +20,7 @@ But, this language doesn't work alone, so, some libraries was used between NodeJ
 1. [Express](https://expressjs.com/pt-br/) - used to manage and to configure the routes of API
 2. [BodyParser](https://www.npmjs.com/package/body-parser) - used because of the necessity to parsing the requests
 3. [Request Pomisse Native](https://github.com/request/request-promise-native) - used to enable the use of promisses natively, with async / await
+4. [Dotenv](https://www.npmjs.com/package/dotenv) - 
 
 ### Linter
 

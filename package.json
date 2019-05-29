@@ -1,0 +1,51 @@
+{
+    "name": "brainnco-challenge",
+    "version": "0.0.1",
+    "description": "Node.js example on Docker",
+    "repository": {
+		"type": "git",
+		"url": "git+https://github.com/pablolopesk8/brainnco-challenge.git"
+	},
+	"keywords": [
+		"test",
+		"challenge",
+		"brainnco",
+		"github"
+	],
+    "license": "MIT",
+    "author": "Pablo Lopes",
+    "main": "index.js",
+    "bugs": {
+		"url": "https://github.com/pablolopesk8/brainnco-challenge/issues"
+	},
+	"homepage": "https://github.com/pablolopesk8/brainnco-challenge#readme",
+    "scripts": {
+        "start": "node index.js",
+        "start:dev": "nodemon index.js",
+        "test": "mocha",
+		"lint": "eslint ."
+    },
+    "dependencies": {
+        "express": "^4.16.4",
+        "body-parser": "^1.19.0",
+        "request": "^2.88.0",
+		"request-promise-native": "^1.0.7",
+		"dotenv": "^8.0.0",
+		"mongoose": "^5.5.11"
+    },
+    "devDependencies": {
+		"eslint": "^5.16.0",
+		"mocha": "^6.1.4",
+		"nodemon": "^1.19.0",
+		"should": "^13.2.3",
+		"sinon": "^7.3.2""
+	},
+	"nodemonConfig": {
+		"restartable": "rs",
+		"ignore": [
+			"node_modules/**/node_modules",
+			"tests/**",
+			"api_brainncochallenge.postman_collection.json"
+		]
+	}
+}

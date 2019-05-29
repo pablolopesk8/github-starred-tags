@@ -1,4 +1,4 @@
-version: '0.1'
+version: '3'
 services:
     database:
         container_name: apigithub-db
@@ -12,3 +12,13 @@ services:
             - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
         ports:
             - "3002:27017"
+            
+    api:
+        container_name: apigithub-api
+        build: docker/node
+        depends_on:
+            - database
+        volumes:
+            - ./:/usr/src/app
+        ports:
+            - 3001:3000
