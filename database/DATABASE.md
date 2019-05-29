@@ -6,9 +6,9 @@ This file describe the configurations used in Mongo database creation.
 
 Docker is configured in docker-compose because isn't required special configurations.  
 The service is started with auth configurations, to improve security.  
-The exposed port is 3002.  
-Is set the /data/db inside the container to make backups "automatically", putting the data inside the host machine.  
-Is set a script to run in the first initialization of docker. This script is responsible to create the database and collection for the system. The script is in [mongo-init](mongo-init.js).
+The exposed port is **3002**.  
+Is set the [data/db](/data/db) to the container put the data manipulated into container for outside of the container, in the host machine, creating something like as data backup.  
+Is set a script to run in the first initialization of docker. This script is responsible for the creaction of the database and collections. The script is in [mongo-init](mongo-init.js).
 
 ## Schema
 
