@@ -1,2 +1,14 @@
-version: '2'
+version: '0.1'
 services:
+    database:
+        container_name: apigithub-db
+        image: mongo:4.1.11-bionic
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=123@Abc
+            - MONGO_INITDB_DATABASE=apigithub
+        volumes:
+            - ./database/data:/data/db
+            - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+        ports:
+            - "3002:27017"

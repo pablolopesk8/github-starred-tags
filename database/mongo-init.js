@@ -1,24 +1,24 @@
-db.runCommand( {
-    collMod: "users",
-    validator: {
-    }
-}
+/** Init file to create user, database and schema**/
+conn = new Mongo();
+db = conn.getDB("apigithub");
 
+db.createUser(
+  {
+    user: "admin_apigithub",
+    pwd: "Xyz@789",
+    roles: [ { role: "readWrite", db: "apigithub" } ]
+  }
+);
+
+/** create users collection with a schema validator **/
 db.createCollection("users", {
    validator: {
-      $jsonSchema: {
+    $jsonSchema: {
          bsonType: "object",
-         required: [ "githubId", "name", "username" ],
+         required: [ "githubUser" ],
+         additionalProperties: true,
          properties: {
-            githubId: {
-               bsonType: "string",
-               description: "string required"
-            },
-            name: {
-               bsonType: "string",
-               description: "string required"
-            },
-            username: {
+            githubUser: {
                bsonType: "string",
                description: "string required"
             },
@@ -32,17 +32,13 @@ db.createCollection("users", {
                         items: {
                             bsonType: "object",
                             additionalProperties: false,
-                            required: [ "githubId", "name", "description", "url", "language" ],
+                            required: [ "githubId", "name", "url" ],
                             properties: {
                                 githubId: {
-                                   bsonType: "string",
+                                   bsonType: ["number", "string"],
                                    description: "string required"
                                 },
                                 name: {
-                                   bsonType: "string",
-                                   description: "string required"
-                                },
-                                description: {
                                    bsonType: "string",
                                    description: "string required"
                                 },
@@ -50,9 +46,17 @@ db.createCollection("users", {
                                    bsonType: "string",
                                    description: "string required"
                                 },
+                                fullName: {
+                                   bsonType: ["string","null"],
+                                   description: "string not required"
+                                },
+                                description: {
+                                   bsonType: ["string","null"],
+                                   description: "string not required"
+                                },
                                 language: {
-                                   bsonType: "string",
-                                   description: "string required"
+                                   bsonType: ["string","null"],
+                                   description: "string not required"
                                 },
                                 tags: {
                                     bsonType: "array",
@@ -70,30 +74,4 @@ db.createCollection("users", {
          }
       }
    }
-})
-
-db.users.insert({
-    name:"pablo2",
-    githubId:"222222",
-    username:"pablolopesk9",
-    repositories: {
-        test: "test",
-        starred: [
-            {
-                githubId: 178589196,
-                name: "challenge-development",
-                description: "An description about the repository",
-                url: "https://github.com/brainnco/challenge-development",
-                language: "Javascript",
-                tags:["node"]
-            }
-        ]
-    }
-})
-
-
-
-
-https://www.mongodb.com/blog/post/mongodb-36-json-schema-validation-expressive-query-syntax
-https://docs.mongodb.com/manual/reference/mongo-shell/
-https://docs.mongodb.com/manual/core/schema-validation/#query-expressions
+});
