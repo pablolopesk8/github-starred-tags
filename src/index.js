@@ -3,26 +3,24 @@
 // Express init
 const express = require('express');
 const server = express();
+
 // Body parser config
 const bodyParser = require('body-parser');
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
+
 // Get env variables
 require('dotenv').config({ path: __dirname + '/env/.env' });
 const portApi = process.env.PORT_API || 3000;
-const env = process.env.ENV || 'dev';
-const mongoUser = process.env.MONGODB_USER || 'admin';
-const mongoPass = process.env.MONGODB_PASS || '';
-const mongoHost = process.env.MONGODB_HOST || 'localhost';
-const mongoPort = process.env.MONGODB_PORT || '27017';
-const mongoDatabase = process.env.MONGODB_DATABASE || 'test';
-// Get mongoose and connect
-const mongoose = require('mongoose');
-mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`, {
-	auth: { user: mongoUser, password: mongoPass },
-	useNewUrlParser: true
-}).then(
+const env = process.env.ENV || 'dev'; // eslint-disable-line
+
+// Get database and connect
+const { DBConnect } = require('./db.service');
+
+DBConnect().then(
 	() => {
+		/*** the server is only started if connected successfully on database ***/
+		
 		// listener to get requests for /
 		server.get('/', (req, res) => {
 			res.send('Github API is working!!!');
@@ -33,8 +31,8 @@ mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`, {
 			console.log(`Server listening on port ${portApi}`);
 		});
 	},
-	err => {
-		console.log(err)
+	(err) => {
+		console.log(err);
 	}
 );
 

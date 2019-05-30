@@ -65,3 +65,6 @@ database/data/**/*
 
 # ENV file
 .env
+
+#VSCode
+*workspace
