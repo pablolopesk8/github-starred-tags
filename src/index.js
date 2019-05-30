@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 // Get env variables
+require('dotenv').config({ path: __dirname + '/env/.env' });
 const portApi = process.env.PORT_API || 3000;
 const env = process.env.ENV || 'dev';
 const mongoUser = process.env.MONGODB_USER || 'admin';
@@ -17,16 +18,24 @@ const mongoPort = process.env.MONGODB_PORT || '27017';
 const mongoDatabase = process.env.MONGODB_DATABASE || 'test';
 // Get mongoose and connect
 const mongoose = require('mongoose');
-mongoose.connect(`mongodb://${mongoUser}:${mongoPass}@${mongoHost}:${mongoPort}/${mongoDatabase}`, {useNewUrlParser: true});
+mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`, {
+	auth: { user: mongoUser, password: mongoPass },
+	useNewUrlParser: true
+}).then(
+	() => {
+		// listener to get requests for /
+		server.get('/', (req, res) => {
+			res.send('Github API is working!!!');
+		});
 
-// listener to get requests for /
-server.get('/', (req, res) => {
-	res.send('Github API is working!!!');
-});
-
-// start server on the port defined by env
-server.app = server.listen(portApi, () => {
-	console.log(`Server listening on port ${portApi}`);
-});
+		// start server on the port defined by env
+		server.app = server.listen(portApi, () => {
+			console.log(`Server listening on port ${portApi}`);
+		});
+	},
+	err => {
+		console.log(err)
+	}
+);
 
 module.exports = server;

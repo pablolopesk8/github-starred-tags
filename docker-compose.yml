@@ -15,7 +15,9 @@ services:
             
     api:
         container_name: apigithub-api
-        build: docker/node
+        build:
+            context: .
+            dockerfile: ./docker/node/Dockerfile
         depends_on:
             - database
         volumes:

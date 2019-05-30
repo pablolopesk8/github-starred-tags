@@ -1,6 +1,5 @@
-/* insert user for test */
 db.users.insert({
-    githubUser:"pablolopesk8",
+    githubUser: "pablolopesk8",
     repositories: {
         starred: [
             {
@@ -10,7 +9,12 @@ db.users.insert({
                 description: null,
                 url: "https://github.com/brainnco/challenge-development",
                 language: null,
-                tags:["node","js","docker","whatever"]
+                tags: [
+                    "node",
+                    "js",
+                    "docker",
+                    "whatever"
+                ]
             }
         ]
     }
