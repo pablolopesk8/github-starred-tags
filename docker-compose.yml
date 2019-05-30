@@ -11,7 +11,7 @@ services:
             - ./database/data:/data/db
             - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
         ports:
-            - "3002:27017"
+            - 3002:27017
             
     api:
         container_name: apigithub-api

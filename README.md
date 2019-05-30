@@ -20,36 +20,30 @@ But, this language doesn't work alone, so, some libraries was used between NodeJ
 1. [Express](https://expressjs.com/pt-br/) - used to manage and to configure the routes of API
 2. [BodyParser](https://www.npmjs.com/package/body-parser) - used because of the necessity to parsing the requests
 3. [Request Pomisse Native](https://github.com/request/request-promise-native) - used to enable the use of promisses natively, with async / await
-4. [Dotenv](https://www.npmjs.com/package/dotenv) - 
+4. [Dotenv](https://www.npmjs.com/package/dotenv) - used to set enviroment variables
 
 ### Linter
 
 Linter is a good way to keep the code consistent, clean and following the definitions of the project. For this project, was chosen [ESLint](https://eslint.org/) with the basic NodeJS configuration. The linter is configurated only in *development* enviroment.
 
-### Enviroment configurations
-
-The enviroment has some configurations that you must have to run the application. All of this variables was defined into [docker-compose](docker-compose.yml) and their explanations are below:
-
-1. NODE_ENV: variable to define what enviroment the system was running (prod ou dev)
-2. DATABASE_HOST, DATABASE_PORT, DATABASE_DB, DATABASE_USER, DATABASE_PASS: configurations related to database connections
-3. GITHUB_AUTHUSER: the Github user that will be used to authenticate
-4. GITHUB_TOKEN: token generated in [Github Integration](#github-integration) section
-
-#### Development enviroment configuration
+#### Development enviroment
 
 In development mode, the [Nodemon](https://nodemon.io/) was used to watch files and restart files in every change.
 
 ## Database
 
 [MongoDB](https://www.mongodb.com/) was used as storage. The reasons for this choice are, mainly, the speed and the simplicity of the data. The data stored are only user and his repositories. So, it's easier to store them in a NoSQL and document drive storage.  
-For connect and execute operations in database, was used [Mongoose](https://mongoosejs.com/).
+For connect and execute operations in database, was used [Mongoose](https://mongoosejs.com/).  
+MongoDB was configured with auth to provide more security.
 
 ## Microservices
 
 Using the approach of Microservices, [Docker](https://docker.com) was used to create to services for this application:
 
-1. NodeJS Server: a simple server, with the minimum configuration, running node and exposing the port 3000
-2. MongoDB Server: a server with minimum configuration, running MondoDB and exposing the port 5859
+1. NodeJS Server: a simple server, with the minimum configuration, running node and exposing the port 3001
+2. MongoDB Server: a server with minimum configuration, running MondoDB and exposing the port 3002
+
+> To connect a container from another, you need to use the name of service and the intern port of this service
 
 ## Endpoints
 
@@ -78,8 +72,10 @@ npm run start:dev
 And, if you want to run only the NodeJS service in production, you can run
 
 ```bash
-npm run start
+npm start
 ```
+
+> If you run only NodeJS service, you need start manually the container of database. And your connection with mongo must be done using *localhost:exposed_port*.
 
 ## Tests
 
