@@ -23,6 +23,7 @@
         "start": "node src/index.js",
         "start:dev": "nodemon src/index.js",
         "test": "mocha",
+        "test:watch": "mocha --watch",
         "lint": "eslint ."
     },
     "dependencies": {

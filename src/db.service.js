@@ -12,10 +12,16 @@ const mongoose = require('mongoose');
 
 // method to connect in a database, using parameters in .env file
 const DBConnect = async () => {
-    return await mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`, {
+    const ret = await mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`, {
         auth: { user: mongoUser, password: mongoPass },
         useNewUrlParser: true
     });
+    console.log(`Connected to mongodb with: ${mongoHost}:${mongoPort}/${mongoDatabase}`);
+    return ret;
 };
 
-module.exports = { DBConnect: DBConnect };
+const DBCloseConnection = async () => {
+    return mongoose.disconnect();
+}
+
+module.exports = { DBConnect: DBConnect, DBCloseConnection: DBCloseConnection };
