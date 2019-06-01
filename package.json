@@ -22,8 +22,8 @@
     "scripts": {
         "start": "node src/index.js",
         "start:dev": "nodemon src/index.js",
-        "test": "mocha",
-        "test:watch": "mocha --watch",
+        "test": "mocha --recursive",
+        "test:watch": "mocha --watch --recursive",
         "lint": "eslint ."
     },
     "dependencies": {
