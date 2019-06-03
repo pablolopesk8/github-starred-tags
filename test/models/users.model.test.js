@@ -12,21 +12,6 @@ describe('Model User Test', () => {
             });
         });
 
-        it('Should be have a validation for starred repositories, if exists, the minimun one', () => {
-            const user2 = new Users({
-                githubUser: 'whatever',
-                repositories: {
-                    starred: []
-                }
-            });
-
-            user2.validate((err) => {
-                err.errors.should.have.property('repositories');
-                err.errors['repositories'].should.have.property('starred');
-                err.errors['repositories']['starred'].should.have.property('message').be.equal('if there is starred, the least one is required');
-            });
-        });
-
         it('Should be have a validation for starred repositories, if exists, required githubId, name and url', () => {
             const user3 = new Users({
                 githubUser: 'whatever',
@@ -37,13 +22,12 @@ describe('Model User Test', () => {
 
             user3.validate((err) => {
                 err.errors.should.have.property('repositories');
-                err.errors['repositories'].should.have.property('starred');
-                err.errors['repositories']['starred'].should.have.property('githubId');
-                err.errors['repositories']['starred']['githubId'].should.have.property('message').be.equal('githubId is required');
-                err.errors['repositories']['starred'].should.have.property('name');
-                err.errors['repositories']['starred']['name'].should.have.property('message').be.equal('name is required');
-                err.errors['repositories']['starred'].should.have.property('url');
-                err.errors['repositories']['starred']['url'].should.have.property('message').be.equal('url');
+                err.errors['repositories'].errors.should.have.property('starred.0.githubId');
+                err.errors['repositories'].errors['starred.0.githubId'].should.have.property('message').be.equal('githubId is required');
+                err.errors['repositories'].errors.should.have.property('starred.0.name');
+                err.errors['repositories'].errors['starred.0.name'].should.have.property('message').be.equal('name is required');
+                err.errors['repositories'].errors.should.have.property('starred.0.url');
+                err.errors['repositories'].errors['starred.0.url'].should.have.property('message').be.equal('url is required');
             });
         });
 
