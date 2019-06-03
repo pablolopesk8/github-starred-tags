@@ -24,22 +24,24 @@ Get a list of starred repositories of the user passed as paramenter, filtering b
 
     + Body
 
-            [    
-                {
-                    id: 178589196,
-                    name: "challenge-development",
-                    description: "An description about the repository",
-                    url: "https://github.com/brainnco/challenge-development",
-                    language: "Javascript",
-                    tags: [
-                        "nodejs", "docker"
-                    ]
-                }
-            ]
+            {
+                repositories: [    
+                    {
+                        id: 178589196,
+                        name: "challenge-development",
+                        description: "An description about the repository",
+                        url: "https://github.com/brainnco/challenge-development",
+                        language: "Javascript",
+                        tags: [
+                            "nodejs", "docker"
+                        ]
+                    }
+                ]
+            }
 
     + Schema
 
-            {
+            repositories: {
                 type: "array",
                 items: {
                     type: "object",
@@ -85,16 +87,20 @@ Insert an array of tags into respository, and return the actual tags of reposito
     
     + Body
 
-            [
-                "api", "blueprint"
-            ]
+            {
+                tags: [
+                    "api", "blueprint"
+                ]
+            }
 
     + Schema
 
             {
-                type: "array",
-                items: {
-                    type: "string"
+                tags: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    }
                 }
             }
 
@@ -102,16 +108,20 @@ Insert an array of tags into respository, and return the actual tags of reposito
 
     + Body
 
-            [
-                "nodejs", "docker", "api", "blueprint"
-            ]
+            {
+                tags: [
+                    "nodejs", "docker", "api", "blueprint"
+                ]
+            }
 
     + Schema
 
             {
-                type: "array",
-                items: {
-                    type: "string"
+                tags: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    }
                 }
             }
 
@@ -123,16 +133,20 @@ Delete an array of tags for respository, and return the actual tags of repositor
     
     + Body
 
-            [
-                "docker", "blueprint"
-            ]
+            {
+                tags: [
+                    "docker", "blueprint"
+                ]
+            }
 
     + Schema
 
             {
-                type: "array",
-                items: {
-                    type: "string"
+                tags: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    }
                 }
             }
 
@@ -140,15 +154,19 @@ Delete an array of tags for respository, and return the actual tags of repositor
 
     + Body
 
-            [
-                "nodejs", "api"
-            ]
+            {
+                tags: [
+                    "nodejs", "api"
+                ]
+            }
 
     + Schema
 
             {
-                type: "array",
-                items: {
-                    type: "string"
+                tags: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    }
                 }
             }

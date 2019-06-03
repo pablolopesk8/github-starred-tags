@@ -34,3 +34,12 @@
 1. Verify if connected correctly
 
 > It doesn't possible to test if not connected, because it's doesn't possible to change the values of constants that configure the connection
+
+### Users model
+
+1. Verify if githubUser is required
+2. Verify, if exists repositories -> starred, if is required githubId, name and url
+3. Verify if is possible to create only with githubUser
+4. Verify if is possible to create with githubUser and other properties
+5. Verify if is possible to create with repositories, but without starred
+6. Verify if is possible to create with repositories -> starred, with the required attributes
