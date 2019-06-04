@@ -68,3 +68,4 @@ database/data/**/*
 
 #VSCode
 *workspace
+.vscode/

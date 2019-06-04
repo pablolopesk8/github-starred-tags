@@ -30,6 +30,10 @@ Linter is a good way to keep the code consistent, clean and following the defini
 
 In development mode, the [Nodemon](https://nodemon.io/) was used to watch files and restart files in every change.
 
+### Validator
+
+To get validation of data, was used [AJV](https://github.com/epoberezkin/ajv). In some blogs and posts, the tests using AJV is faster than Joi or Validator.JS . Because of this, that library was chosen.
+
 ## Database
 
 [MongoDB](https://www.mongodb.com/) was used as storage. The reasons for this choice are, mainly, the speed and the simplicity of the data. The data stored are only user and his repositories. So, it's easier to store them in a NoSQL and document drive storage.  
@@ -91,3 +95,7 @@ And to run the tests withou watch, use
 ```bash
 npm test
 ```
+
+## IDE
+
+The [VSCode](https://code.visualstudio.com/) was chosen as the IDE to develop this API. Was created config about that IDE and the file is [docs/vscode.config.json] with configurations about Debug using mocha, that can be used for anybody.
