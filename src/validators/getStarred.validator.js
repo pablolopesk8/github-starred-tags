@@ -1,12 +1,11 @@
-/**
- * Service to provide methods to validate repository data
- */
 const Ajv = require('ajv');
 const ajv = new Ajv({errorDataPath: 'property'});
 
 /**
- * Method to validate params passed to get starred repositories
- * @param {Object} params required
+ * Method to validate the data used in get starred repository request
+ * @param {Object} data data to be validated
+ * @throws {Error} error specifying if field required (required-field) ou invalid (type-field)
+ * @returns {boolean} true
  */
 const validator = async (data) => {
     // schema to validate user and tags
@@ -31,9 +30,9 @@ const validator = async (data) => {
         } else if (ajv.errors[0].keyword === "type") {
             // if validation is about string, verify the property that error
             if (ajv.errors[0].dataPath === ".user") {
-                errorType = "invalid-user";
+                errorType = "type-user";
             } else {
-                errorType = "invalid-tag";
+                errorType = "type-tag";
             }
         }
 

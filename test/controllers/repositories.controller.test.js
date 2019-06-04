@@ -42,77 +42,173 @@ describe('Controller Repositories Test', () => {
     });
 
     describe('Tags - Insert', () => {
-        it('Should have an user in url parameter', () => {
+        it('Should have an user in url parameter', async () => {
             const req = { params: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.insertTags(req, res);
+            await controller.insertTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
-        it('Should have an repoId in url parameter', () => {
-            const req = { params: {} };
+        it('Should have a valid user string in url parameter', async () => {
+            const req = { params: { user: 123 } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.insertTags(req, res);
+            await controller.insertTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an repoId in url parameter', async () => {
+            const req = { params: { user: 'anyuser' } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
         });
 
-        it('Should have an array of tags in body', () => {
+        it('Should have a valid repoId number in url parameter', async () => {
+            const req = { params: { user: 'anyuser', repoId: '123' } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an array of tags in body', async () => {
             const req = { body: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.insertTags(req, res);
+            await controller.insertTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('An array of tag strings is required').should.equal(true);
+        });
+
+        it('Should have an array of tags, not empty, in body', async () => {
+            const req = { body: { tags: [] } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('An array of tag strings is required').should.equal(true);
+        });
+
+        it('Should have an array of tags, in string format, in body', async () => {
+            const req = { body: { tags: [ 'tag111', 123] } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An array of tag strings is required').should.equal(true);
         });
     });
 
     describe('Tags - Delete', () => {
-        it('Should have an user in url parameter', () => {
+        it('Should have an user in url parameter', async () => {
             const req = { params: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.deleteTags(req, res);
+            await controller.deleteTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
-        it('Should have an repoId in url parameter', () => {
-            const req = { params: {} };
+        it('Should have a valid user string in url parameter', async () => {
+            const req = { params: { user: 123 } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.deleteTags(req, res);
+            await controller.deleteTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an repoId in url parameter', async () => {
+            const req = { params: { user: 'user123' } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.deleteTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
         });
 
-        it('Should have an array of tags in body', () => {
+        it('Should have a valid repoId number in url parameter', async () => {
+            const req = { params: { user: 'user123', repoId: '123' } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.deleteTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an array of tags in body', async () => {
             const req = { body: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            controller.deleteTags(req, res);
+            await controller.deleteTags(req, res);
 
-            res.status.calledWith(500).should.equal(true);
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('An array of tag strings is required').should.equal(true);
+        });
+
+        it('Should have an array of tags, not empty, in body', async () => {
+            const req = { body: { tags: [] } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.deleteTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('An array of tag strings is required').should.equal(true);
+        });
+
+        it('Should have an array of tags, in string format, in body', async () => {
+            const req = { body: { tags: [ 'tag111', 123] } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.deleteTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An array of tag strings is required').should.equal(true);
         });
     });
