@@ -1,5 +1,5 @@
 /**
- * Service to provide a method to connect into database
+ * Service to provide methods to connect and disconnect from database
  */
 // Get env variables
 const mongoUser = process.env.MONGODB_USER || 'admin';

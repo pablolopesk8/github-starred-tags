@@ -69,3 +69,6 @@ database/data/**/*
 #VSCode
 *workspace
 .vscode/
+
+# OSX
+.DS_Store

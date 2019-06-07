@@ -83,7 +83,7 @@ npm start
 
 ## Tests
 
-For the tests was used [Mocha](https://mochajs.org/) as library to execute and to describe the tests. For the assertion and validation was used [ShouldJS](https://shouldjs.github.io/). And for faker returns and throws of server, was used [Sinon](https://sinonjs.org/).  
+For the tests was used [Mocha](https://mochajs.org/) as library to execute and to describe the tests. For the assertion and validation was used [ShouldJS](https://shouldjs.github.io/). For faker returns and throws of server, was used [Sinon](https://sinonjs.org/). And for HTTP tests was used [Supertest](https://www.npmjs.com/package/supertest).  
 To run the tests, watching files and re-run in each file modification, use
 
 ```bash

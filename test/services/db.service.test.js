@@ -1,7 +1,7 @@
 const should = require('should'); // eslint-disable-line
-require('dotenv').config({ path: __dirname + '/../src/env/.env' });
+require('dotenv').config({ path: __dirname + '/../../src/env/.env' });
 const mongoose = require('mongoose');
-const { DBConnect, DBCloseConnection } = require('../src/db.service');
+const { DBConnect, DBCloseConnection } = require('../../src/services/db.service');
 
 describe('Database Service Test', () => {
     describe('When connected correctly', () => {
