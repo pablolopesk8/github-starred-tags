@@ -2,6 +2,7 @@ const Users = require('../models/users.model');
 const { getStarredValidator } = require('../validators/getStarred.validator');
 const { requestUserRepoValidator } = require('../validators/requestUserRepo.validator');
 const { postDeleteTagsValidator } = require('../validators/postDeleteTags.validator');
+const { GetUserData } = require('../services/github.service');
 
 /**
  * Controller to define business rules related to repositories
@@ -16,6 +17,10 @@ const controller = function () {
         try {
             // call method to validate data
             await getStarredValidator(req.params);
+
+            // try get user data from local database
+            const user = await Users.findOne({githubUser: req.params.user});
+            console.log(user);
         } catch (e) {
             // set the message to return
             switch (e.message) {

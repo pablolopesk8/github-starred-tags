@@ -4,6 +4,7 @@
 const request = require('request-promise-native');
 
 // Get env variables
+require('dotenv').config({ path: __dirname + '/../env/.env' });
 const GITHUB_AUTH_USER = process.env.GITHUB_AUTH_USER;
 const GITHUB_AUTH_TOKEN = process.env.GITHUB_AUTH_TOKEN;
 const GITHUB_URL_BASE = process.env.GITHUB_URL_BASE;

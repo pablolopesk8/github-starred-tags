@@ -1,5 +1,4 @@
 const should = require('should'); // eslint-disable-line
-require('dotenv').config({ path: __dirname + '/../../src/env/.env' });
 //const mongoose = require('mongoose');
 const { GetUserData, GetUserRepositoriesStarred } = require('../../src/services/github.service');
 

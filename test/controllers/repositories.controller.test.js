@@ -15,8 +15,8 @@ describe('Controller Repositories Test', () => {
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
-
-        it('Should have a valid user string in the url parameter', async () => {
+        
+        it('Should have an user string in the url parameter', async () => {
             const req = { params: { user: 123 } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
@@ -28,8 +28,20 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
+        it('Should have a valid github user string in the url parameter', async () => {
+            const req = { params: { user: "invalidGithubUser123456" } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.getStarredRepositories(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+        });
+
         it('If have tags in the url parameter, should have valid strings', async () => {
-            const req = { params: { user: "anyValidString", tags: [123] } };
+            const req = { params: { user: "pablolopesk8", tags: [123] } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -54,8 +66,20 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
-        it('Should have a valid user string in url parameter', async () => {
+        it('Should have an user string in url parameter', async () => {
             const req = { params: { user: 123 } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+        });
+        
+        it('Should have a valid github user string in the url parameter', async () => {
+            const req = { params: { user: "invalidGithubUser123456" } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -67,7 +91,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have an repoId in url parameter', async () => {
-            const req = { params: { user: 'anyuser' } };
+            const req = { params: { user: 'pablolopesk8' } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -79,7 +103,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have a valid repoId number in url parameter', async () => {
-            const req = { params: { user: 'anyuser', repoId: '123' } };
+            const req = { params: { user: "pablolopesk8", repoId: '123' } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -140,8 +164,20 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
-        it('Should have a valid user string in url parameter', async () => {
+        it('Should have an user string in url parameter', async () => {
             const req = { params: { user: 123 } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.deleteTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+        });
+        
+        it('Should have a valid github user string in the url parameter', async () => {
+            const req = { params: { user: "invalidGithubUser123456" } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -153,7 +189,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have an repoId in url parameter', async () => {
-            const req = { params: { user: 'user123' } };
+            const req = { params: { user: "pablolopesk8" } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -165,7 +201,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have a valid repoId number in url parameter', async () => {
-            const req = { params: { user: 'user123', repoId: '123' } };
+            const req = { params: { user: 'pablolopesk8', repoId: '123' } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 

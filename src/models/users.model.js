@@ -25,7 +25,10 @@ const usersModel = new Schema({
                     url: {
                         type: String,
                         required: [true, 'url is required']
-                    }
+                    },
+                    tags: [{
+                        type: String
+                    }]
                 })]
             }
         })
