@@ -16,7 +16,7 @@ const DBConnect = async () => {
         auth: { user: mongoUser, password: mongoPass },
         useNewUrlParser: true
     });
-    console.log(`Connected to mongodb with: ${mongoHost}:${mongoPort}/${mongoDatabase}`);
+    //console.log(`Connected to mongodb with: ${mongoHost}:${mongoPort}/${mongoDatabase}`);
     return ret;
 };
 

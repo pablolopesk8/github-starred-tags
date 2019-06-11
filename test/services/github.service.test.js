@@ -1,5 +1,4 @@
 const should = require('should'); // eslint-disable-line
-//const mongoose = require('mongoose');
 const { GetUserData, GetUserRepositoriesStarred } = require('../../src/services/github.service');
 
 describe('Github Service Test', () => {

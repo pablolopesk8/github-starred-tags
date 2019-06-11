@@ -29,7 +29,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have a valid github user string in the url parameter', async () => {
-            const req = { params: { user: "invalidGithubUser123456" } };
+            const req = { params: { user: "invalidUser123456" } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+// this line is needed because an issue noticed in: https://github.com/Automattic/mongoose/issues/6890
+mongoose.set('useCreateIndex', true);
 
+const { Schema } = mongoose;
 /**
  * Users model, created as a mongoose Schema
  * 

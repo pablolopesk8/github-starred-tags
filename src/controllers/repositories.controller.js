@@ -1,8 +1,8 @@
-const Users = require('../models/users.model');
+//const Users = require('../models/users.model');
 const { getStarredValidator } = require('../validators/getStarred.validator');
 const { requestUserRepoValidator } = require('../validators/requestUserRepo.validator');
 const { postDeleteTagsValidator } = require('../validators/postDeleteTags.validator');
-const { GetUserData } = require('../services/github.service');
+const { GetUserByGithubUser } = require('../services/users.service');
 
 /**
  * Controller to define business rules related to repositories
@@ -18,14 +18,14 @@ const controller = function () {
             // call method to validate data
             await getStarredValidator(req.params);
 
-            // try get user data from local database
-            const user = await Users.findOne({githubUser: req.params.user});
-            console.log(user);
+            // get user from any source (db or github)
+            const user = await GetUserByGithubUser(req.params.user);
         } catch (e) {
             // set the message to return
             switch (e.message) {
                 case "required-user":
                 case "type-user":
+                case "invalid-githubuser":
                     res.status(400);
                     return res.send("A valid user from Github is required in url");
                 case "type-tag":
