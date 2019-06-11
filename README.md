@@ -99,3 +99,13 @@ npm test
 ## IDE
 
 The [VSCode](https://code.visualstudio.com/) was chosen as the IDE to develop this API. Was created config about that IDE and the file is [docs/vscode.config.json] with configurations about Debug using mocha, that can be used for anybody.
+
+## TO DO
+
+### model/users.model
+
+Implements custom validators to string attributes
+
+### tests/model/users.model.test
+
+Implements validations to verify if model validated correctly strings attributes

@@ -12,7 +12,7 @@ describe('Model User Test', () => {
             });
         });
 
-        it('Should be have a validation for starred repositories, if exists, required githubId, name and url', () => {
+        it('Should be have a validation for starred repositories, required githubId, name and url', () => {
             const user3 = new Users({
                 githubUser: 'whatever',
                 repositories: {
@@ -31,43 +31,107 @@ describe('Model User Test', () => {
             });
         });
 
+        it('Should be have a validation for starred repositories, githubId needs to be number', () => {
+            const user = new Users({
+                githubUser: 'whatever',
+                repositories: {
+                    starred: [{
+                        githubId: 'anystring'
+                    }]
+                }
+            });
+
+            user.validate((err) => {
+                err.errors.should.have.property('repositories');
+                err.errors['repositories'].errors.should.have.property('starred.0.githubId');
+                err.errors['repositories'].errors['starred.0.githubId'].should.have.property('name').be.equal('CastError');
+            });
+        });
+
+        it('Should be have validation for starred repositories, fullName, description and language, accepeted only strings', () => {
+            const user = new Users({
+                githubUser: 'whatever',
+                repositories: {
+                    starred: [{
+                        githubId: 123456789,
+                        name: 'repository-name',
+                        url: 'http://github.com/username/repositoryname',
+                        fullName: 123456,
+                        description: 789456,
+                        language: 654987
+                    }]
+                }
+            });
+            /**
+             * @todo To create this kind of validation, the model needs to implement a custom validator for string attributes
+             *      These validators won't be created at this moment, so, this validation won't be created too
+             */
+            user.validate((err) => {
+                should.not.exist(err);
+            });
+        });
+
+        it('Should be have validation for starred repositories, tags, accepeted only strings', () => {
+            const user = new Users({
+                githubUser: 'whatever',
+                repositories: {
+                    starred: [{
+                        githubId: 123456789,
+                        name: 'repository-name',
+                        url: 'http://github.com/username/repositoryname',
+                        fullName: 'full name of repository',
+                        description: 'description of repository',
+                        language: 'language of repository',
+                        tags: [ 123, 456 ]
+                    }]
+                }
+            });
+            /**
+             * @todo To create this kind of validation, the model needs to implement a custom validator for string attributes
+             *      These validators won't be created at this moment, so, this validation won't be created too
+             */
+            user.validate((err) => {
+                should.not.exist(err);
+            });
+        });
+
         it('Should be created only with githubUser', () => {
-            const user4 = new Users({
+            const user = new Users({
                 githubUser: 'whatever'
             });
 
-            user4.validate((err) => {
+            user.validate((err) => {
                 should.not.exist(err);
             });
         });
 
         it('Should be created with githubUser and some other properties', () => {
-            const user5 = new Users({
+            const user = new Users({
                 githubUser: 'whatever',
                 other: 123,
-                someOther: [1,'a']
+                someOther: [1, 'a']
             });
 
-            user5.validate((err) => {
+            user.validate((err) => {
                 should.not.exist(err);
             });
         });
 
         it('Should be created with repositories, but without starred property', () => {
-            const user6 = new Users({
+            const user = new Users({
                 githubUser: 'whatever',
                 repositories: {
                     someProperty: 'some test'
                 }
             });
 
-            user6.validate((err) => {
+            user.validate((err) => {
                 should.not.exist(err);
             });
         });
 
         it('Should be created with repositories, and with starred property', () => {
-            const user7 = new Users({
+            const user = new Users({
                 githubUser: 'whatever',
                 repositories: {
                     starred: [
@@ -80,7 +144,33 @@ describe('Model User Test', () => {
                 }
             });
 
-            user7.validate((err) => {
+            user.validate((err) => {
+                should.not.exist(err);
+            });
+        });
+
+        it('Should be created with repositories, and with starred properties containing tags', () => {
+            const user = new Users({
+                githubUser: 'whatever',
+                repositories: {
+                    starred: [
+                        {
+                            githubId: 123456789,
+                            name: 'repository-name',
+                            url: 'http://github.com/username/repositoryname',
+                            tags: [ 'tag1', 'tag2' ]
+                        },
+                        {
+                            githubId: 987654,
+                            name: 'name-repository',
+                            url: 'http://github.com/nameuser/namerepository',
+                            tags: [ 'tag11', 'tag22' ]
+                        }
+                    ]
+                }
+            });
+
+            user.validate((err) => {
                 should.not.exist(err);
             });
         });

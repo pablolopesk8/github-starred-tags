@@ -3,6 +3,9 @@ const { Schema } = mongoose;
 
 /**
  * Users model, created as a mongoose Schema
+ * 
+ * @todo validation for string type doesn't work
+ *      It's needed a custom validator, that won't be created at this moment
  */
 const usersModel = new Schema({
     githubUser: {
@@ -13,9 +16,9 @@ const usersModel = new Schema({
     repositories: {
         type: new Schema({
             starred: {
-                type:[new Schema({
+                type:[{
                     githubId: {
-                        type: String,
+                        type: Number,
                         required: [true, 'githubId is required']
                     },
                     name: {
@@ -26,10 +29,11 @@ const usersModel = new Schema({
                         type: String,
                         required: [true, 'url is required']
                     },
-                    tags: [{
-                        type: String
-                    }]
-                })]
+                    fullName: String,
+                    description: String,
+                    language: String,
+                    tags: [ String ]
+                }]
             }
         })
     }
