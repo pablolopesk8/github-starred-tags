@@ -78,8 +78,8 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
         
-        it('Should have a valid github user string in the url parameter', async () => {
-            const req = { params: { user: "invalidGithubUser123456" } };
+        it('Should have an existing user in the url parameter', async () => {
+            const req = { params: { user: "invalidGithubUser123456", repoId: 123 } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -87,7 +87,7 @@ describe('Controller Repositories Test', () => {
             await controller.insertTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
-            res.send.calledWith('A valid user from Github is required in url').should.equal(true);
+            res.send.calledWith('An existing user is required in url').should.equal(true);
         });
 
         it('Should have an repoId in url parameter', async () => {
@@ -112,6 +112,10 @@ describe('Controller Repositories Test', () => {
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an existing repoId in url parameter', async () => {
+            false.should.be.true();
         });
 
         it('Should have an array of tags in body', async () => {
@@ -188,6 +192,18 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
 
+        it('Should have an existing user in the url parameter', async () => {
+            const req = { params: { user: "invalidGithubUser123456", repoId: 123 } };
+
+            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
+
+            const controller = repositoriesController;
+            await controller.insertTags(req, res);
+
+            res.status.calledWith(400).should.equal(true);
+            res.send.calledWith('An existing user is required in url').should.equal(true);
+        });
+
         it('Should have an repoId in url parameter', async () => {
             const req = { params: { user: "pablolopesk8" } };
 
@@ -210,6 +226,10 @@ describe('Controller Repositories Test', () => {
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
+        });
+
+        it('Should have an existing repoId in url parameter', async () => {
+            false.should.be.true();
         });
 
         it('Should have an array of tags in body', async () => {

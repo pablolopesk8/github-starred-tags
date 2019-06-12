@@ -2,8 +2,14 @@
  * Service to provide methods to work with user
  */
 const Users = require('../models/users.model');
-const { GetUserData } = require('../services/github.service');
+const { GetUserData: GetGithubUserData } = require('./github.service');
 
+/**
+ * Method to get user data from any source (local DB or Github)
+ * @param {String} githubUser
+ * @returns user data
+ * @throws {Error}
+ */
 const GetUserByGithubUser = async (githubUser) => {
     try {
         // try get user data from local database
@@ -11,7 +17,17 @@ const GetUserByGithubUser = async (githubUser) => {
 
         // if doesn't get user, try to get in github
         if (!user) {
-            user = await GetUserData(githubUser);
+            user = await GetGithubUserData(githubUser);
+
+            // if user got on Github, save him into local db
+            Users.create({ githubUser: user.githubUser }, (err, created) => {
+                // if error, throw up
+                if (err) {
+                    throw new Error(err.message);
+                }
+
+                return created;
+            });
         }
 
         return user;
@@ -19,7 +35,22 @@ const GetUserByGithubUser = async (githubUser) => {
         // doesn't handle the error. Only send that up
         throw new Error(err.message);
     }
-
 }
 
-module.exports = { GetUserByGithubUser: GetUserByGithubUser };
+const GetUserFromDB = async (githubUser) => {
+    try {
+        // try get user data from local database
+        const user = await Users.findOne({ githubUser: githubUser });
+
+        // if doesn't get user, throw an error
+        if (!user) {
+            throw new Error('nonexistent-user');
+        } else {
+            return user;
+        }
+    } catch (err) {
+        throw new Error (err.message);
+    }
+}
+
+module.exports = { GetUserByGithubUser: GetUserByGithubUser, GetUserFromDB: GetUserFromDB };

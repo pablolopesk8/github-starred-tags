@@ -21,7 +21,7 @@ const DBConnect = async () => {
 };
 
 const DBCloseConnection = async () => {
-    return mongoose.disconnect();
+    return await mongoose.disconnect();
 }
 
 module.exports = { DBConnect: DBConnect, DBCloseConnection: DBCloseConnection };

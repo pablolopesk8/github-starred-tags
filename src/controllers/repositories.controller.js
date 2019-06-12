@@ -1,8 +1,7 @@
-//const Users = require('../models/users.model');
 const { getStarredValidator } = require('../validators/getStarred.validator');
 const { requestUserRepoValidator } = require('../validators/requestUserRepo.validator');
 const { postDeleteTagsValidator } = require('../validators/postDeleteTags.validator');
-const { GetUserByGithubUser } = require('../services/users.service');
+const { GetUserByGithubUser, GetUserFromDB } = require('../services/users.service');
 
 /**
  * Controller to define business rules related to repositories
@@ -19,7 +18,7 @@ const controller = function () {
             await getStarredValidator(req.params);
 
             // get user from any source (db or github)
-            const user = await GetUserByGithubUser(req.params.user);
+            await GetUserByGithubUser(req.params.user);
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -48,6 +47,9 @@ const controller = function () {
             // call methods to validate data
             await requestUserRepoValidator(req.params);
             await postDeleteTagsValidator(req.body);
+
+            // try to get user from local database
+            await GetUserFromDB(req.params.user);
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -55,6 +57,9 @@ const controller = function () {
                 case "type-user":
                     res.status(400);
                     return res.send("A valid user from Github is required in url");
+                case "nonexistent-user":
+                    res.status(400);
+                    return res.send("An existing user is required in url");
                 case "required-repoId":
                 case "type-repoId":
                     res.status(400);
@@ -81,6 +86,9 @@ const controller = function () {
             // call methods to validate data
             await requestUserRepoValidator(req.params);
             await postDeleteTagsValidator(req.body);
+
+            // try to get user from local database
+            await GetUserFromDB(req.params.user);
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -88,6 +96,9 @@ const controller = function () {
                 case "type-user":
                     res.status(400);
                     return res.send("A valid user from Github is required in url");
+                case "nonexistent-user":
+                    res.status(400);
+                    return res.send("An existing user is required in url");
                 case "required-repoId":
                 case "type-repoId":
                     res.status(400);
