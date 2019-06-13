@@ -79,9 +79,9 @@ Resources related with operations with tags into repositories
     + user: pablolopesk8 (string, required) - An github user id, which is the owner of the repository
     + repoId: 178589196 (number, required) - An github repository id, to manage tags
 
-### Insert new tags into repository [POST]
+### Update tags into repository [PATCH]
 
-Insert an array of tags into respository, and return the actual tags of repository, after the change
+Update the tags of the respository, and return the actual tags of repository, after the change
 
 + Request (application/json)
     
@@ -89,7 +89,7 @@ Insert an array of tags into respository, and return the actual tags of reposito
 
             {
                 tags: [
-                    "api", "blueprint"
+                    "nodejs", "api", "blueprint"
                 ]
             }
 
@@ -110,53 +110,7 @@ Insert an array of tags into respository, and return the actual tags of reposito
 
             {
                 tags: [
-                    "nodejs", "docker", "api", "blueprint"
-                ]
-            }
-
-    + Schema
-
-            {
-                tags: {
-                    type: "array",
-                    items: {
-                        type: "string"
-                    }
-                }
-            }
-
-### Delete tags for repository [DELETE]
-
-Delete an array of tags for respository, and return the actual tags of repository, after the change
-
-+ Request (application/json)
-    
-    + Body
-
-            {
-                tags: [
-                    "docker", "blueprint"
-                ]
-            }
-
-    + Schema
-
-            {
-                tags: {
-                    type: "array",
-                    items: {
-                        type: "string"
-                    }
-                }
-            }
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                tags: [
-                    "nodejs", "api"
+                    "nodejs", "api", "blueprint"
                 ]
             }
 

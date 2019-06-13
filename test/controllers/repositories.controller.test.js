@@ -60,14 +60,14 @@ describe('Controller Repositories Test', () => {
         });
     });
 
-    describe('Tags - Insert', () => {
+    describe('Tags - Update', () => {
         it('Should have an user in url parameter', async () => {
             const req = { params: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
@@ -79,7 +79,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
@@ -91,7 +91,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An existing user is required in url').should.equal(true);
@@ -103,7 +103,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
@@ -115,7 +115,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid repoId from Github is required in url').should.equal(true);
@@ -127,7 +127,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An existing repoId is required in url').should.equal(true);
@@ -139,7 +139,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An array of tag strings is required').should.equal(true);
@@ -151,7 +151,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An array of tag strings is required').should.equal(true);
@@ -163,7 +163,7 @@ describe('Controller Repositories Test', () => {
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
             const controller = repositoriesController;
-            await controller.insertTags(req, res);
+            await controller.updateTags(req, res);
 
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('An array of tag strings is required').should.equal(true);

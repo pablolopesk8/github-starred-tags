@@ -8,7 +8,7 @@ const { GetUserByGithubUser, GetUserFromDB } = require('../services/users.servic
  */
 const controller = function () {
     /**
-	 * Create clients 
+	 * Get starred repositories, filtering by tag or not
 	 * @param {Request} req 
 	 * @param {Response} res 
 	 */
@@ -38,17 +38,17 @@ const controller = function () {
     }
 
     /**
-	 * Create clients 
+	 * Update tags of one repository
 	 * @param {Request} req 
 	 * @param {Response} res 
 	 */
-    const insertTags = async (req, res) => {
+    const updateTags = async (req, res) => {
         try {
             // call methods to validate data
             await requestUserRepoValidator(req.params);
             await postDeleteTagsValidator(req.body);
 
-            // get user from local database
+            // get user data from local database
             const user = await GetUserFromDB(req.params.user);
 
             // filter the starred repos, by repoId passed
@@ -92,7 +92,7 @@ const controller = function () {
 	 * @param {Request} req 
 	 * @param {Response} res 
 	 */
-    const deleteTags = async (req, res) => {
+    /* const deleteTags = async (req, res) => {
         try {
             // call methods to validate data
             await requestUserRepoValidator(req.params);
@@ -124,12 +124,11 @@ const controller = function () {
                     return res.send("Error in parameters");
             }
         }
-    }
+    } */
 
     return {
         getStarredRepositories: getStarredRepositories,
-        insertTags: insertTags,
-        deleteTags: deleteTags
+        updateTags: updateTags
     }
 }
 
