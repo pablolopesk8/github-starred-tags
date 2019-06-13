@@ -2,7 +2,7 @@
  * Service to provide methods to work with user
  */
 const Users = require('../models/users.model');
-const { GetUserData: GetGithubUserData } = require('./github.service');
+const { GetUserData: GetGithubUserData, GetUserRepositoriesStarred: GetReposStarred } = require('./github.service');
 
 /**
  * Method to get user data from any source (local DB or Github)
@@ -18,9 +18,10 @@ const GetUserByGithubUser = async (githubUser) => {
         // if doesn't get user, try to get in github
         if (!user) {
             user = await GetGithubUserData(githubUser);
+            const starred = await GetReposStarred(githubUser);
 
-            // if user got on Github, save him into local db
-            Users.create({ githubUser: user.githubUser }, (err, created) => {
+            // save the user, with starred repos, into local db
+            Users.create({ githubUser: user.githubUser, repositories: { starred: starred } }, (err, created) => {
                 // if error, throw up
                 if (err) {
                     throw new Error(err.message);

@@ -19,3 +19,19 @@ db.users.insert({
         ]
     }
 })
+
+db.users.updateOne(
+    {githubUser: "pablolopesk8"},
+    {$set: {
+        repositories: { 
+            starred: [ { 
+                githubId: 35914020, 
+                name: "ajv", 
+                fullName: "epoberezkin/ajv", 
+                description: "The fastest JSON Schema Validator. Supports draft-04/06/07", 
+                url: "https://github.com/epoberezkin/ajv", 
+                language: "javascript" 
+            } ] 
+        } 
+    }}
+)

@@ -48,8 +48,16 @@ const controller = function () {
             await requestUserRepoValidator(req.params);
             await postDeleteTagsValidator(req.body);
 
-            // try to get user from local database
-            await GetUserFromDB(req.params.user);
+            // get user from local database
+            const user = await GetUserFromDB(req.params.user);
+
+            // filter the starred repos, by repoId passed
+            const repoIndex = user.repositories && user.repositories.starred ? user.repositories.starred.findIndex((item) => item.githubId === req.params.repoId) : -1;
+
+            // if doesn't get a repo, throw error
+            if (repoIndex === -1) {
+                throw new Error("nonexisting-repoId");
+            }
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -64,6 +72,9 @@ const controller = function () {
                 case "type-repoId":
                     res.status(400);
                     return res.send("A valid repoId from Github is required in url");
+                case "nonexisting-repoId":
+                    res.status(400);
+                    return res.send("An existing repoId is required in url");
                 case "required-tags":
                 case "type-tags":
                 case "minItems-tags":

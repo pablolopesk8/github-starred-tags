@@ -16,6 +16,8 @@ describe('Users Service Test', () => {
             /*
             const user = await GetUserByGithubUser(notSavedUser);
             user.should.have.property('githubUser').and.be.equal(notSavedUser);
+            user.should.have.property('repositories');
+            user.respositories.should.have.property('starred');
             */
         });
 
@@ -27,6 +29,8 @@ describe('Users Service Test', () => {
             /*
             const user = await GetUserByGithubUser(savedUser);
             user.should.have.property('githubUser').and.be.equal(savedUser);
+            user.should.have.property('repositories');
+            user.respositories.should.have.property('starred');
             */
         });
 
@@ -44,6 +48,8 @@ describe('Users Service Test', () => {
             /*
             const user = await GetUserFromDB(savedUser);
             user.should.have.property('githubUser').and.be.equal(savedUser);
+            user.should.have.property('repositories');
+            user.respositories.should.have.property('starred');
             */
         });
     });
