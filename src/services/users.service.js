@@ -29,6 +29,10 @@ const GetUserByGithubUser = async (githubUser) => {
 
                 return created;
             });
+        } else {
+            // if user exists in local DB, get starred repos on Github and update locally
+            const starred = await GetReposStarred(githubUser);
+            await Users.updateOne({ githubUser: user.githubUser }, { repositories: { starred: starred } });
         }
 
         return user;
@@ -50,7 +54,7 @@ const GetUserFromDB = async (githubUser) => {
             return user;
         }
     } catch (err) {
-        throw new Error (err.message);
+        throw new Error(err.message);
     }
 }
 
