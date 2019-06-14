@@ -32,4 +32,4 @@ const validator = async (data) => {
     }
 }
 
-module.exports = { postDeleteTagsValidator: validator };
+module.exports = { requestTagsValidator: validator };

@@ -48,7 +48,7 @@ describe('Integration Repositories Test', () => {
     describe('Tags - Update', () => {
         it('Should be able to update the tags and get the result, passing an user and repo on the url, and an array of tags on the body', async () => {
             const tags = ['tag1', 'tag2'];
-            await agent.patch(`/${githubUserWithStarred}/${existingRepoId}/tags`)
+            await agent.patch(`/${githubUserWithStarred}/repos/${existingRepoId}/tags`)
                 .send({tags: tags})
                 .expect(200)
                 .expect('Content-Type', /json/)
@@ -60,7 +60,7 @@ describe('Integration Repositories Test', () => {
 
         it('Should be able to get an empty result, passing an user and repo on the url, and an empty array of tags on the body', async () => {
             const tags = [];
-            await agent.patch(`/${githubUserWithStarred}/${existingRepoId}/tags`)
+            await agent.patch(`/${githubUserWithStarred}/repos/${existingRepoId}/tags`)
                 .send({tags: tags})
                 .expect(200)
                 .expect('Content-Type', /json/)

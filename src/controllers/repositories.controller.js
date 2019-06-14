@@ -1,6 +1,6 @@
 const { getStarredValidator } = require('../validators/getStarred.validator');
 const { requestUserRepoValidator } = require('../validators/requestUserRepo.validator');
-const { postDeleteTagsValidator } = require('../validators/postDeleteTags.validator');
+const { requestTagsValidator } = require('../validators/requestTags.validator');
 const { GetUserByGithubUser, GetUserFromDB } = require('../services/users.service');
 
 /**
@@ -46,7 +46,7 @@ const controller = function () {
         try {
             // call methods to validate data
             await requestUserRepoValidator(req.params);
-            await postDeleteTagsValidator(req.body);
+            await requestTagsValidator(req.body);
 
             // get user data from local database
             const user = await GetUserFromDB(req.params.user);
