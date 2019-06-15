@@ -24,7 +24,7 @@ describe('Controller Repositories Test', () => {
         });
         
         it('Should have an user string in the url parameter', async () => {
-            const req = { params: { user: 123 } };
+            const req = { user: 123, params: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -36,7 +36,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have a valid github user string in the url parameter', async () => {
-            const req = { params: { user: invalidGithubUser } };
+            const req = { user: invalidGithubUser, params: {} };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
@@ -48,7 +48,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('If have tags in the url parameter, should have valid strings', async () => {
-            const req = { params: { user: validGithubUser, tags: [123] } };
+            const req = { user: validGithubUser, params: { tags: [123] } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
