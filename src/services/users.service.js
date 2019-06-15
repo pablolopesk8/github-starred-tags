@@ -22,7 +22,6 @@ const GetUserByGithubUser = async (githubUser) => {
 
             // save the user, with starred repos, into local db
             Users.create({ githubUser: user.githubUser, repositories: { starred: starred } }, (err, created) => {
-                // if error, throw up
                 if (err) {
                     throw new Error(err.message);
                 }
@@ -32,7 +31,22 @@ const GetUserByGithubUser = async (githubUser) => {
         } else {
             // if user exists in local DB, get starred repos on Github and update locally
             const starred = await GetReposStarred(githubUser);
-            await Users.updateOne({ githubUser: user.githubUser }, { repositories: { starred: starred } });
+
+            // if user has starred repositories previously, update the starred got on github with tags existing
+            if (user.repositories && user.repositories.starred && user.repositories.starred.length > 0) {
+                for (let i = 0, len = starred.length; i < len; i++) {
+                    // check if the current repository exists in user
+                    let currentRepo = user.repositories.starred.filter((item) => item.githubId === starred[i].githubId);
+                    if(currentRepo.length > 0) {
+                        starred[i].tags = currentRepo[0].tags;
+                    }
+                }
+            }
+
+            // update user and set the starred into the object
+            Users.updateOne({ githubUser: user.githubUser }, { $set: { repositories: { starred: starred } } });
+            user.repositories = { starred: starred };
+            user = user.toJSON();
         }
 
         return user;

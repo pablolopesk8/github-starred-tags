@@ -30,6 +30,10 @@ DBConnect().then(
         });
 
         // the base of server is :user. And for repositories, the base is repos
+        server.param('user', function (req, res, next, user) {
+            req.user = user;
+            next();
+        });
         server.use('/:user/repos', repositoriesRouter);
 
         // start server on the port defined by env

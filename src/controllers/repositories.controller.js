@@ -14,11 +14,25 @@ const controller = function () {
 	 */
     const getStarredRepositories = async (req, res) => {
         try {
+            // create a params with user and tags, got from req
+            const params = { user: req.user, tags: req.params.tags ? req.params.tags.split(',') : undefined };
+
             // call method to validate data
-            await getStarredValidator(req.params);
+            await getStarredValidator(params);
 
             // get user from any source (db or github)
-            await GetUserByGithubUser(req.params.user);
+            const user = await GetUserByGithubUser(params.user);
+
+            // get the starred repositories
+            let { starred: starredRepos } = user.repositories;
+
+            // if there are tags, filter the starred
+            if (params.tags) {
+                starredRepos = starredRepos.filter((item) => item.tags.some((tagItem) => params.tags.indexOf(tagItem) >= 0));
+            }
+
+            res.status(200);
+            return res.send({ repositories: starredRepos });
         } catch (e) {
             // set the message to return
             switch (e.message) {

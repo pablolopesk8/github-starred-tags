@@ -35,3 +35,104 @@ db.users.updateOne(
         } 
     }}
 )
+
+db.users.updateOne(
+    {githubUser: "pablolopesk8"},
+    {$set: {
+        "repositories":{
+            "starred":[
+                {
+                    "tags":["ajv", "123"],
+                    "githubId":35914020,
+                    "name":"ajv",
+                    "fullName":"epoberezkin/ajv",
+                    "description":"The fastest JSON Schema Validator. Supports draft-04/06/07",
+                    "url":"https://github.com/epoberezkin/ajv",
+                    "language":"JavaScript"
+                },
+                {
+                    "tags":["tag1","123","sdd"],
+                    "githubId":178589196,
+                    "name":"challenge-development",
+                    "fullName":"brainnco/challenge-development",
+                    "description":null,
+                    "url":"https://github.com/brainnco/challenge-development",
+                    "language":null
+                },
+                {
+                    "tags":["chatbot"],
+                    "githubId":128960625,
+                    "name":"watson-sample-chatbot",
+                    "fullName":"Leocardoso94/watson-sample-chatbot",
+                    "description":"A sample chatbot using watson",
+                    "url":"https://github.com/Leocardoso94/watson-sample-chatbot",
+                    "language":"CSS"
+                },
+                {
+                    "tags":["sdd"],
+                    "githubId":1090329,
+                    "name":"should.js",
+                    "fullName":"tj/should.js",
+                    "description":"BDD style assertions for node.js -- test framework agnostic",
+                    "url":"https://github.com/tj/should.js",
+                    "language":"JavaScript"
+                },
+                {
+                    "tags":["123"],
+                    "githubId":145996990,
+                    "name":"careers",
+                    "fullName":"jusbrasil/careers",
+                    "description":null,
+                    "url":"https://github.com/jusbrasil/careers",
+                    "language":null
+                },
+                {
+                    "tags":["tag1","123"],
+                    "githubId":48108328,
+                    "name":"messaginghub-client-js",
+                    "fullName":"takenet/messaginghub-client-js",
+                    "description":"The Javascript SDK for the Messaging Hub portal",
+                    "url":"https://github.com/takenet/messaginghub-client-js",
+                    "language":"JavaScript"
+                },
+                {
+                    "tags":[],
+                    "githubId":8843683,
+                    "name":"Chart.js",
+                    "fullName":"chartjs/Chart.js",
+                    "description":"Simple HTML5 Charts using the <canvas> tag",
+                    "url":"https://github.com/chartjs/Chart.js",
+                    "language":"JavaScript"
+                },
+                {
+                    "tags":[],
+                    "githubId":52167803,
+                    "name":"pdf-generator",
+                    "fullName":"cesarvr/pdf-generator",
+                    "description":"Cordova plugin to generate pdf in the client-side",
+                    "url":"https://github.com/cesarvr/pdf-generator",
+                    "language":"Objective-C"
+                }
+            ]
+        }
+    }}
+)
+
+db.users.updateOne(
+    {githubUser: "pablolopesk8"},
+    {$set: {
+        "repositories":{
+            "starred":[
+                {
+                    description:"The fastest JSON Schema Validator. Supports draft-04/06/07",
+                    fullName:"epoberezkin/ajv",
+                    githubId:35914020,
+                    language:"JavaScript",
+                    name:"ajv",
+                    should:"Assertion",
+                    url:"https://github.com/epoberezkin/ajv",
+                }
+            ]
+        }
+    }}
+)

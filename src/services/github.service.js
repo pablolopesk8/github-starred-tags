@@ -8,11 +8,13 @@ require('dotenv').config({ path: __dirname + '/../env/.env' });
 const GITHUB_AUTH_USER = process.env.GITHUB_AUTH_USER;
 const GITHUB_AUTH_TOKEN = process.env.GITHUB_AUTH_TOKEN;
 const GITHUB_URL_BASE = process.env.GITHUB_URL_BASE;
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 const GetUserData = async (githubUser) => {
     // options to get user data
     const options = {
-        uri: `${GITHUB_URL_BASE}/users/${githubUser}`,
+        uri: `${GITHUB_URL_BASE}/users/${githubUser}?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`,
         json: true,
         headers: {
             'User-Agent': GITHUB_AUTH_USER,
@@ -42,7 +44,7 @@ const GetUserData = async (githubUser) => {
 const GetUserRepositoriesStarred = async (githubUser) => {
     // options to get the starred repos
     const options = {
-        uri: `${GITHUB_URL_BASE}/users/${githubUser}/starred`,
+        uri: `${GITHUB_URL_BASE}/users/${githubUser}/starred?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`,
         json: true,
         headers: {
             'User-Agent': GITHUB_AUTH_USER,

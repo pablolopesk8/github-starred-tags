@@ -9,7 +9,7 @@ const agent = request.agent(server);
 
 // variable to be used in tests
 const githubUserWithStarred = "pablolopesk8";
-const githubUserWithoutStarred = "brainnco";
+const githubUserWithoutStarred = "nelobrizola";
 const existingRepoId = 35914020;
 
 describe('Integration Repositories Test', () => {
@@ -20,7 +20,10 @@ describe('Integration Repositories Test', () => {
                 .expect('Content-Type', /json/)
                 .then((results) => {
                     results.body.should.have.property('repositories');
-                    results.body.repositories.should.be.array();
+                    results.body.repositories.should.be.not.empty();
+                    results.body.repositories.should.matchEach((item) => {
+                        Object.keys(item).sort() === [ '_id', 'description', 'fullName', 'githubId', 'language', 'name', 'tags', 'url' ]
+                    });
                 });
         });
 
@@ -30,17 +33,22 @@ describe('Integration Repositories Test', () => {
                 .expect('Content-Type', /json/)
                 .then((results) => {
                     results.body.should.have.property('repositories');
-                    results.body.repositories.should.be.equal([]);
+                    results.body.repositories.should.be.empty();
                 });
         });
 
         it('Should be able to return an array of repositories, passing an user as url parameter and an array of tags', async () => {
-            await agent.get(`/${githubUserWithStarred}/repos/starred?tag1,tag2,tag3`)
+            const tags = 'tag1,sdd,chatbot';
+            const tagsArray = tags.split(',');
+            await agent.get(`/${githubUserWithStarred}/repos/starred/${tags}`)
                 .expect(200)
                 .expect('Content-Type', /json/)
                 .then((results) => {
                     results.body.should.have.property('repositories');
-                    results.body.repositories.should.be.array();
+                    results.body.repositories.should.be.not.empty();
+                    results.body.repositories.should.matchEach((item) => {
+                        item.tags.some((tagItem) => tagsArray.indexOf(tagItem) >= 0);
+                    });
                 });
         });
     });

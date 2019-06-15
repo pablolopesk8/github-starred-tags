@@ -11,6 +11,8 @@ db.createUser(
 );
 
 /** create users collection with a schema validator **/
+/* db.runCommand( {
+    collMod: "contacts", */
 db.createCollection("users", {
     validator: {
         $jsonSchema: {
@@ -31,7 +33,7 @@ db.createCollection("users", {
                             minItems: 0,
                             items: {
                                 bsonType: "object",
-                                additionalProperties: false,
+                                additionalProperties: true,
                                 required: ["githubId", "name", "url"],
                                 properties: {
                                     githubId: {
