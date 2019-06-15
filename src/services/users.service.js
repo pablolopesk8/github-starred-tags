@@ -44,7 +44,7 @@ const GetUserByGithubUser = async (githubUser) => {
             }
 
             // update user and set the starred into the object
-            Users.updateOne({ githubUser: user.githubUser }, { $set: { repositories: { starred: starred } } });
+            await Users.updateOne({ githubUser: user.githubUser }, { $set: { repositories: { starred: starred } } });
             user.repositories = { starred: starred };
             user = user.toJSON();
         }
