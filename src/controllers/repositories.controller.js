@@ -58,20 +58,23 @@ const controller = function () {
 	 */
     const updateTags = async (req, res) => {
         try {
+            // create a params with user and repoId, got from req
+            const params = { user: req.user, repoId: req.params.repoId };
+
             // call methods to validate data
-            await requestUserRepoValidator(req.params);
+            await requestUserRepoValidator(params);
             await requestTagsValidator(req.body);
 
             // get user data from local database
-            const user = await GetUserFromDB(req.params.user);
+            const user = await GetUserFromDB(params.user);
 
             // filter the starred repos, by repoId passed
-            const repoIndex = user.repositories && user.repositories.starred ? user.repositories.starred.findIndex((item) => item.githubId === req.params.repoId) : -1;
-
-            // if doesn't get a repo, throw error
+            const repoIndex = user.repositories && user.repositories.starred ? user.repositories.starred.findIndex((item) => item.githubId == params.repoId) : -1;
             if (repoIndex === -1) {
                 throw new Error("nonexisting-repoId");
             }
+
+
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -100,45 +103,6 @@ const controller = function () {
             }
         }
     }
-
-    /**
-	 * Create clients 
-	 * @param {Request} req 
-	 * @param {Response} res 
-	 */
-    /* const deleteTags = async (req, res) => {
-        try {
-            // call methods to validate data
-            await requestUserRepoValidator(req.params);
-            await postDeleteTagsValidator(req.body);
-
-            // try to get user from local database
-            await GetUserFromDB(req.params.user);
-        } catch (e) {
-            // set the message to return
-            switch (e.message) {
-                case "required-user":
-                case "type-user":
-                    res.status(400);
-                    return res.send("A valid user from Github is required in url");
-                case "nonexistent-user":
-                    res.status(400);
-                    return res.send("An existing user is required in url");
-                case "required-repoId":
-                case "type-repoId":
-                    res.status(400);
-                    return res.send("A valid repoId from Github is required in url");
-                case "required-tags":
-                case "type-tags":
-                case "minItems-tags":
-                    res.status(400);
-                    return res.send("An array of tag strings is required");
-                default:
-                    res.status(500);
-                    return res.send("Error in parameters");
-            }
-        }
-    } */
 
     return {
         getStarredRepositories: getStarredRepositories,

@@ -12,7 +12,7 @@ const validator = async (data) => {
     const schema = {
         properties: {
             user: { type: "string" },
-            repoId: { type: "integer" }
+            repoId: { type: "string" }
         },
         required: ["user", "repoId"]
     }
