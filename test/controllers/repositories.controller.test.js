@@ -46,18 +46,6 @@ describe('Controller Repositories Test', () => {
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
-
-        it('If have tags in the url parameter, should have valid strings', async () => {
-            const req = { user: validGithubUser, params: { tags: [123] } };
-
-            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
-
-            const controller = repositoriesController;
-            await controller.getStarredRepositories(req, res);
-
-            res.status.calledWith(400).should.equal(true);
-            res.send.calledWith('If you passed tags in url, they need to be valid strings').should.equal(true);
-        });
     });
 
     describe('Tags - Update', () => {
