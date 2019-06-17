@@ -11,7 +11,7 @@ const validator = async (data) => {
     // schema to validate tags
     const schema = {
         properties: {
-            tags: { type: "array", minItems: 1, items: { type: "string" } }
+            tags: { type: "array", minItems: 0, items: { type: "string" } }
         },
         required: ["tags"]
     }

@@ -10,7 +10,7 @@ const agent = request.agent(server);
 // variable to be used in tests
 const githubUserWithStarred = "pablolopesk8";
 const githubUserWithoutStarred = "nelobrizola";
-const existingRepoId = 35914020;
+const existingRepoId = "35914020";
 
 describe('Integration Repositories Test', () => {
     describe('Starred - Get', () => {
@@ -62,7 +62,7 @@ describe('Integration Repositories Test', () => {
                 .expect('Content-Type', /json/)
                 .then((results) => {
                     results.body.should.have.property('tags');
-                    results.body.tags.should.be.equal(tags);
+                    results.body.tags.should.be.eql(tags);
                 });
         });
 
@@ -74,7 +74,7 @@ describe('Integration Repositories Test', () => {
                 .expect('Content-Type', /json/)
                 .then((results) => {
                     results.body.should.have.property('tags');
-                    results.body.tags.should.be.equal(tags);
+                    results.body.tags.should.be.eql(tags);
                 });
         });
     });

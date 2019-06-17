@@ -2,6 +2,7 @@ const { getStarredValidator } = require('../validators/getStarred.validator');
 const { requestUserRepoValidator } = require('../validators/requestUserRepo.validator');
 const { requestTagsValidator } = require('../validators/requestTags.validator');
 const { GetUserByGithubUser, GetUserFromDB } = require('../services/users.service');
+const Users = require('../models/users.model');
 
 /**
  * Controller to define business rules related to repositories
@@ -74,7 +75,12 @@ const controller = function () {
                 throw new Error("nonexisting-repoId");
             }
 
+            // changed the specific repository tags, and update then on local database
+            user.repositories.starred[repoIndex].tags = req.body.tags;
+            await Users.updateOne({ githubUser: user.githubUser }, { $set: { repositories: { starred: user.repositories.toJSON().starred } } });
 
+            res.status(200);
+            return res.send({ tags: user.repositories.starred[repoIndex].tags });
         } catch (e) {
             // set the message to return
             switch (e.message) {
@@ -94,7 +100,6 @@ const controller = function () {
                     return res.send("An existing repoId is required in url");
                 case "required-tags":
                 case "type-tags":
-                case "minItems-tags":
                     res.status(400);
                     return res.send("An array of tag strings is required");
                 default:

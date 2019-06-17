@@ -7,11 +7,6 @@ describe('Validator RequestTags Test', () => {
         await requestTagsValidator(data).should.be.rejectedWith('required-tags');
     });
 
-    it('Should be rejected if tags array is empty', async () => {
-        const data = { tags: [] };
-        await requestTagsValidator(data).should.be.rejectedWith('minItems-tags');
-    });
-
     it('Should be rejected if any tag is not string', async () => {
         const data = { tags: ['tag1', 123] };
         await requestTagsValidator(data).should.be.rejectedWith('type-tags');

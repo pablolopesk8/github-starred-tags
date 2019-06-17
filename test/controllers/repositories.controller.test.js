@@ -121,18 +121,6 @@ describe('Controller Repositories Test', () => {
             res.send.calledWith('An array of tag strings is required').should.equal(true);
         });
 
-        it('Should have an array of tags, not empty, in body', async () => {
-            const req = { user: existingUser, params: { repoId: nonexistingRepo }, body: { tags: [] } };
-
-            const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
-
-            const controller = repositoriesController;
-            await controller.updateTags(req, res);
-
-            res.status.calledWith(400).should.equal(true);
-            res.send.calledWith('An array of tag strings is required').should.equal(true);
-        });
-
         it('Should have an array of tags, in string format, in body', async () => {
             const req = { user: existingUser, params: { repoId: nonexistingRepo }, body: { tags: [ 'tag111', 123] } };
 
