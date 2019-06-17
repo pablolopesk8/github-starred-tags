@@ -38,6 +38,10 @@ DBConnect().then(
 
         // start server on the port defined by env
         server.app = server.listen(portApi, () => {
+            // in dev, emit an event to be catch in integration tests
+            if (env === 'dev'){
+                server.emit('server-started');
+            }            
             console.log(`Server listening on port ${portApi}`);
         });
     },

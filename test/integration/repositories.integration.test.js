@@ -3,9 +3,7 @@
  * Using fake data, is possible verify if the call of the methods exposed by API get the correct result
  */
 const should = require('should'); // eslint-disable-line
-const server = require('../../src/index');
-const request = require('supertest');
-const agent = request.agent(server);
+const { DBCloseConnection } = require('../../src/services/db.service');
 
 // variable to be used in tests
 const githubUserWithStarred = "pablolopesk8";
@@ -13,6 +11,24 @@ const githubUserWithoutStarred = "nelobrizola";
 const existingRepoId = "35914020";
 
 describe('Integration Repositories Test', () => {
+    let agent;
+    let server;
+    
+    // force server start before ever test, using the event on server listen
+    before((done) => {
+        // require the server only here, to avoid that its started before it is necessary
+        server = require('../../src/index');
+        const request = require('supertest');
+        agent = request.agent(server);
+        server.once('server-started' , () => {
+            done();
+        });
+    });
+    // close the DB connection and server when the tests over
+    after(async () => {
+        await DBCloseConnection();
+        server.app.close();
+    });
     describe('Starred - Get', () => {
         it('Should be able to return an array of repositories, passing an user as url parameter', async () => {
             await agent.get(`/${githubUserWithStarred}/repos/starred`)

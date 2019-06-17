@@ -21,6 +21,7 @@ const DBConnect = async () => {
 };
 
 const DBCloseConnection = async () => {
+    //console.log(`Closed connection to mongodb: ${mongoHost}:${mongoPort}/${mongoDatabase}`);
     return await mongoose.disconnect();
 }
 

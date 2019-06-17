@@ -1,6 +1,7 @@
 const should = require('should'); // eslint-disable-line
 const sinon = require('sinon');
 const repositoriesController = require('../../src/controllers/repositories.controller');
+const { DBConnect, DBCloseConnection } = require('../../src/services/db.service');
 
 // variable to be used in tests
 const invalidGithubUser = "invalidUser123456";
@@ -10,6 +11,13 @@ const nonexistingUser = "44past4";
 const nonexistingRepo = "123456";
 
 describe('Controller Repositories Test', () => {
+    // force open and close connection with DB, because it's necessary to execution of this test
+    before(async () => {
+        await DBConnect();
+    });
+    after(async () => {
+        await DBCloseConnection();
+    });
     describe('Starred - Get', () => {
         it('Should have an user in the url parameter', async () => {
             const req = { params: {} };
@@ -22,7 +30,7 @@ describe('Controller Repositories Test', () => {
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
-        
+
         it('Should have an user string in the url parameter', async () => {
             const req = { user: 123, params: {} };
 
@@ -72,7 +80,7 @@ describe('Controller Repositories Test', () => {
             res.status.calledWith(400).should.equal(true);
             res.send.calledWith('A valid user from Github is required in url').should.equal(true);
         });
-        
+
         it('Should have an existing user in the url parameter', async () => {
             const req = { user: nonexistingUser, params: { repoId: nonexistingRepo } };
 
@@ -122,7 +130,7 @@ describe('Controller Repositories Test', () => {
         });
 
         it('Should have an array of tags, in string format, in body', async () => {
-            const req = { user: existingUser, params: { repoId: nonexistingRepo }, body: { tags: [ 'tag111', 123] } };
+            const req = { user: existingUser, params: { repoId: nonexistingRepo }, body: { tags: ['tag111', 123] } };
 
             const res = { status: sinon.spy(), send: sinon.spy(), json: sinon.spy() };
 
