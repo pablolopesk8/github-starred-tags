@@ -9,8 +9,10 @@ DOESN'T HAVE an frontend interface in this repository. But, you can use this API
 
 ## Github Integration
 
-To integrate with Github, was used the **OAuth2** as an auth method, because OAuth2 improves the limits of API and for security reasons noticed by Github.  
-For this reason, you need to create a token in your Github account, how is explained in this [article](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and to set in the [configuration file](#enviroment-variable). Obs: doesn't forget to enable the **user** permission for the generated token.
+To integrate with Github, was used the **OAuth2** as an auth method, using a **Token**.  
+For this reason, you need to create a token in your Github account, how is explained in this [article](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and to set in the [env file](#enviroment-variables). Obs: doesn't forget to enable the **user** permission for the generated token.  
+After you create a token as above, you need to create a **OAuth App** following this [link](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/). This action is needed to increase your API Limit, how is explained in this [link](https://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications).  
+If you don't want to use the **OAth App** by your own risk, you will need to remove the *?client_id=XXX&client_secret=XXX* in [githubservice](src/services/github.service.js).
 
 ## Language and Libraries
 
@@ -20,15 +22,16 @@ But, this language doesn't work alone, so, some libraries was used between NodeJ
 1. [Express](https://expressjs.com/pt-br/) - used to manage and to configure the routes of API
 2. [BodyParser](https://www.npmjs.com/package/body-parser) - used because of the necessity to parsing the requests
 3. [Request Pomisse Native](https://github.com/request/request-promise-native) - used to enable the use of promisses natively, with async / await
-4. [Dotenv](https://www.npmjs.com/package/dotenv) - used to set enviroment variables
+4. [Dotenv](https://www.npmjs.com/package/dotenv) - used to store enviroment variables
 
 ### Linter
 
 Linter is a good way to keep the code consistent, clean and following the definitions of the project. For this project, was chosen [ESLint](https://eslint.org/) with the basic NodeJS configuration. The linter is configurated only in *development* enviroment.
 
-#### Development enviroment
+### Enviroment Variables
 
-In development mode, the [Nodemon](https://nodemon.io/) was used to watch files and restart files in every change.
+To store common variables that will be use in some parts of code, was used [Dotenv](https://www.npmjs.com/package/dotenv).  
+There are two *.env* files on repository. And you need to create a *.env* file and put your own values here. Remember, your *.env* file will not be commited to the repository.
 
 ### Validator
 
@@ -39,6 +42,10 @@ To get validation of data, was used [AJV](https://github.com/epoberezkin/ajv). I
 [MongoDB](https://www.mongodb.com/) was used as storage. The reasons for this choice are, mainly, the speed and the simplicity of the data. The data stored are only user and his repositories. So, it's easier to store them in a NoSQL and document drive storage.  
 For connect and execute operations in database, was used [Mongoose](https://mongoosejs.com/).  
 MongoDB was configured with auth to provide more security.
+
+## Server
+
+In development mode, the [Nodemon](https://nodemon.io/) was used to watch files and restart files in every change.
 
 ## Microservices
 
@@ -53,9 +60,8 @@ Using the approach of Microservices, [Docker](https://docker.com) was used to cr
 
 In the API there are 3 endpoints:
 
-1. GET a list of user repositories starred
-2. POST tags into an user repository
-3. DELETE tags from an user repository
+1. GET a list of user repositories starred, filtering by tags or not
+2. UPDATE tags into an user repository
 
 For more details about the API, read the [Documentation](docs/API.apib)
 
@@ -79,7 +85,7 @@ And, if you want to run only the NodeJS service in production, you can run
 npm start
 ```
 
-> If you run only NodeJS service, you need start manually the container of database. And your connection with mongo must be done using *localhost:exposed_port*.
+> If you run only NodeJS service, you need start manually the container of database. And your connection with mongo, configured on [env file](#enviroment-variables), must be done using *localhost:exposed_port*.
 
 ## Tests
 
@@ -90,11 +96,18 @@ To run the tests, watching files and re-run in each file modification, use
 npm test:watch
 ```
 
-And to run the tests withou watch, use
+And to run the tests without watching, use
 
 ```bash
 npm test
 ```
+
+> My suggestion is to run the tests outside a container. For this, you need to update the [env file](#enviroment-variables) changing the *MONGODB_HOST* and *MONGODB_PORT* to your localhost configuration, like *localhost* and *3002*
+
+## API Tests
+
+To test de API Endpoints, you can use a Postman Collection. Click on this button and create a copy:  
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f4b814ebd8088b2b867e)
 
 ## IDE
 

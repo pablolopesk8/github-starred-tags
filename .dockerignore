@@ -8,3 +8,4 @@ database
 docker
 docs
 *.md
+*.postman_collection.json
