@@ -46,7 +46,7 @@ Get a list of starred repositories of the user passed as paramenter, filtering b
                 items: {
                     type: "object",
                     properties: {
-                        id: {
+                        githubId: {
                             type: "number"
                         },
                         name: {
@@ -56,6 +56,9 @@ Get a list of starred repositories of the user passed as paramenter, filtering b
                             type: "string"
                         },
                         url: {
+                            type: "string"
+                        },
+                        language: {
                             type: "string"
                         },
                         tags: {

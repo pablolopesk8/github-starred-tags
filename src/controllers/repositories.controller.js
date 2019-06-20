@@ -44,7 +44,7 @@ const controller = function () {
                     return res.send("A valid user from Github is required in url");
                 case "type-tag":
                     res.status(400);
-                    return res.send("If you passed tags in url, they need to be valid strings");
+                    return res.send("Tags need to be string");
                 default:
                     res.status(500);
                     return res.send("Error in parameters");
