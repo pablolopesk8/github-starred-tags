@@ -1,6 +1,4 @@
-# brainnco-challenge
-
-This repository was create for Challenge for hiring process in Brainnco.
+# github-starred-tags
 
 ## Overview
 
@@ -12,12 +10,12 @@ DOESN'T HAVE an frontend interface in this repository. But, you can use this API
 To integrate with Github, was used the **OAuth2** as an auth method, using a **Token**.  
 For this reason, you need to create a token in your Github account, how is explained in this [article](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and to set in the [env file](#enviroment-variables). Obs: doesn't forget to enable the **user** permission for the generated token.  
 After you create a token as above, you need to create a **OAuth App** following this [link](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/). This action is needed to increase your API Limit, how is explained in this [link](https://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications).  
-If you don't want to use the **OAth App** by your own risk, you will need to remove the *?client_id=XXX&client_secret=XXX* in [githubservice](src/services/github.service.js).
+If you don't want to use the **OAuth App** by your own risk, you will need to remove the *?client_id=XXX&client_secret=XXX* in [githubservice](src/services/github.service.js).
 
 ## Language and Libraries
 
-[NodeJS](http://nodejs.org), in the LTS version, was chosen as language to develop this API. Many available features on last versions of ECMA Script were used during development. But, some features, like 'import', are available on the last LTS Node version (10.15.3) as experimental, therefore, these features didn't use on this code.  
-But, this language doesn't work alone, so, some libraries was used between NodeJS:
+[NodeJS](http://nodejs.org), was chosen as language to develop this API.
+Some libraries was used between NodeJS:
 
 1. [Express](https://expressjs.com/pt-br/) - used to manage and to configure the routes of API
 2. [BodyParser](https://www.npmjs.com/package/body-parser) - used because of the necessity to parsing the requests
@@ -39,7 +37,7 @@ To get validation of data, was used [AJV](https://github.com/epoberezkin/ajv). I
 
 ## Database
 
-[MongoDB](https://www.mongodb.com/) was used as storage. The reasons for this choice are, mainly, the speed and the simplicity of the data. The data stored are only user and his repositories. So, it's easier to store them in a NoSQL and document drive storage.  
+[MongoDB](https://www.mongodb.com/) was used as storage. The reasons for this choice are, mainly, the speed and the simplicity of the data.  
 For connect and execute operations in database, was used [Mongoose](https://mongoosejs.com/).  
 MongoDB was configured with auth to provide more security.
 
@@ -54,11 +52,9 @@ Using the approach of Microservices, [Docker](https://docker.com) was used to cr
 1. NodeJS Server: a simple server, with the minimum configuration, running node and exposing the port 3001
 2. MongoDB Server: a server with minimum configuration, running MondoDB and exposing the port 3002
 
-> To connect a container from another, you need to use the name of service and the intern port of this service
-
 ## Endpoints
 
-In the API there are 3 endpoints:
+In the API there are 2 endpoints:
 
 1. GET a list of user repositories starred, filtering by tags or not
 2. UPDATE tags into an user repository
@@ -113,7 +109,7 @@ To test de API Endpoints, you can use a Postman Collection. Click on this button
 
 The [VSCode](https://code.visualstudio.com/) was chosen as the IDE to develop this API. Was created config about that IDE and the file is [docs/vscode.config.json] with configurations about Debug using mocha, that can be used for anybody.
 
-## TO DO
+## IMPROVEMENTS
 
 ### model/users.model
 
